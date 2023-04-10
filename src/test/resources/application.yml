@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: junit
+  application:
+    name: credit_card_management
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com:
+      card:
+        credit_card_mgmt: DEBUG
