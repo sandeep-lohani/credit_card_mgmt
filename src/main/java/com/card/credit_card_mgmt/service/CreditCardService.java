@@ -6,6 +6,8 @@ import com.card.credit_card_mgmt.model.CreditCardRequest;
 import com.card.credit_card_mgmt.model.CreditCardResponse;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,8 +40,9 @@ public class CreditCardService {
         return creditCardResponse;
     }
 
-    public List<CreditCardResponse> getCards() {
-        List<CreditCardEntity> creditCards = cardRepository.findAll();
+    public List<CreditCardResponse> getCards(final Pageable pageable) {
+        Page<CreditCardEntity> creditCardsPage = cardRepository.findAll(pageable);
+        List<CreditCardEntity> creditCards = creditCardsPage.getContent();
         if(creditCards == null || creditCards.isEmpty()) {
             return null;
         }

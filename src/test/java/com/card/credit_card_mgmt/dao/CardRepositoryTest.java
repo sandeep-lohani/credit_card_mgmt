@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,8 +41,9 @@ class CardRepositoryTest {
 
     @Test
     public void givenCardRepository_whenFetchAllCreditCardEntity_thenOK() {
-        List<CreditCardEntity> foundEntities = cardRepository.findAll();
-        assertNotNull(foundEntities);
-        assertEquals(1, foundEntities.size());
+        Page<CreditCardEntity> foundEntities = cardRepository.findAll(
+                PageRequest.of(0, 3, Sort.by("name").descending()));
+        assertNotNull(foundEntities.getContent());
+        assertEquals(1, foundEntities.getContent().size());
     }
 }

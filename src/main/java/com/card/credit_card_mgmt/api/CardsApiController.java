@@ -127,7 +127,7 @@ public class CardsApiController implements CardsApi {
             @ParameterObject final Pageable pageable
     ) {
         try {
-            List<CreditCardResponse> creditCardResponse = creditCardService.getCards();
+            List<CreditCardResponse> creditCardResponse = creditCardService.getCards(pageable);
             if(creditCardResponse == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
